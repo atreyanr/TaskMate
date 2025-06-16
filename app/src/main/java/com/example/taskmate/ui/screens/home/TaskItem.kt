@@ -1,14 +1,15 @@
 package com.example.taskmate.ui.screens.home
 
+//import com.example.taskmate.data.Task
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.taskmate.data.Task
+import com.example.taskmate.model.TaskEntity
 
 @Composable
-fun TaskItem(task: Task, onToggle: (Task) -> Unit) {
+fun TaskItem(task: TaskEntity, onToggle: (TaskEntity) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -21,7 +22,7 @@ fun TaskItem(task: Task, onToggle: (Task) -> Unit) {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(task.name)
+            Text(task.title)
             Checkbox(
                 checked = task.isDone,
                 onCheckedChange = { onToggle(task) }
