@@ -31,8 +31,8 @@ fun NavGraph(taskViewModel: TaskViewModel,
             startDestination = startDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("home") { HomeScreen(navController, taskViewModel)}
-            composable("completed") { CompletedScreen(navController, taskViewModel) }
+            composable("home") { HomeScreen(taskViewModel)}
+            composable("completed") { CompletedScreen(taskViewModel) }
             composable("settings") { SettingsScreen(navController, taskViewModel, settingsStore) }
         }
     }
