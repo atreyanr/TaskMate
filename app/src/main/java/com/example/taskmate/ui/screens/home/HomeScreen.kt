@@ -9,11 +9,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun HomeScreen(navController: NavController, viewModel: TaskViewModel = viewModel()) {
     HomeScreenContent(
-        taskText = viewModel.taskText,
-        onTaskTextChange = viewModel::onTaskTextChange,
-        tasks = viewModel.taskList,
-        onAddTask = viewModel::addTask,
-        onToggleTask = viewModel::toggleTaskDone
+        tasks = taskList,
+        onAddTask = viewModel::addTask, // Plug in real input
+        onToggleTask = viewModel::toggleTaskDone,
+        onClearTasks = viewModel::clearTasks
     )
 }
 
