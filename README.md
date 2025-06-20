@@ -1,5 +1,7 @@
 # 📋 TaskMate
 
+[![Android CI](https://github.com/atreyanr/TaskMate/actions/workflows/android.yml/badge.svg)](https://github.com/atreyanr/TaskMate/actions/workflows/android.yml)
+
 **TaskMate** is a modern, minimal, and intuitive Android task management app built with **Jetpack Compose**, **ViewModel**, **Room DB**, and **DataStore**. Designed for simplicity, responsiveness, and extensibility.
 
 ---
