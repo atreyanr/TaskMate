@@ -15,14 +15,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.example.taskmate.auth.GoogleAuthUiClient
 import com.example.taskmate.data.TaskDatabase
 import com.example.taskmate.viewmodel.TaskViewModelFactory
+import com.google.android.gms.auth.api.identity.Identity
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
+            val googleAuthUiClient = GoogleAuthUiClient(
+                context = applicationContext,
+                oneTapClient = Identity.getSignInClient(applicationContext)
+            )
+
             val context = LocalContext.current
             val settingsStore = remember { SettingsDataStore(context) }
             val darkModeEnabled by settingsStore.darkModeFlow.collectAsState(initial = false)
@@ -38,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
 
             TaskMateTheme(darkTheme = darkModeEnabled) {
-                NavGraph(taskViewModel = taskViewModel, settingsStore = settingsStore)
+                NavGraph(taskViewModel = taskViewModel, settingsStore = settingsStore, googleAuthUiClient = googleAuthUiClient)
             }
         }
     }

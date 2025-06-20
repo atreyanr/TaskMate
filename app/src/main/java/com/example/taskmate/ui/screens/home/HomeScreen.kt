@@ -17,7 +17,8 @@ fun HomeScreen(viewModel: TaskViewModel = viewModel()) {
     HomeScreenContent(
         tasks = taskList,
         onAddTask = viewModel::addTask, // Plug in real input
-        onToggleTask = viewModel::toggleTaskDone
+        onToggleTask = viewModel::toggleTaskDone,
+        onClearTasks = viewModel::clearTasks
     )
 }
 
