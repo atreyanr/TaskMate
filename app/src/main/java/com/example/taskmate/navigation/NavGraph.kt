@@ -40,7 +40,6 @@ fun NavGraph(taskViewModel: TaskViewModel,
                 viewModel = taskViewModel,
                 settingsStore = settingsStore,
                 googleAuthUiClient = googleAuthUiClient
-            ) }
-        }
+            ) }    
     }
 }

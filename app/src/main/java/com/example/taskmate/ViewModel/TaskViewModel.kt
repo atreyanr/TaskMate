@@ -1,37 +1,35 @@
 package com.example.taskmate.viewmodel
 
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.example.taskmate.data.Task
+import androidx.lifecycle.viewModelScope
+import com.example.taskmate.data.TaskDao
+import com.example.taskmate.model.TaskEntity
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.launch
 
-class TaskViewModel : ViewModel() {
+class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
 
-    var taskText by mutableStateOf("")
-        private set
+    val taskList = taskDao.getAllTasks()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    var taskList = mutableStateListOf<Task>()
-        private set
-
-    fun onTaskTextChange(newText: String) {
-        taskText = newText
+    fun addTask(title: String, category: String) {
+        viewModelScope.launch {
+            val newTask = TaskEntity(title = title, category = category)
+            taskDao.insert(newTask)
+        }
     }
 
-    fun addTask() {
-        if (taskText.isNotBlank()) {
-            taskList.add(Task(taskList.size + 1, taskText))
-            taskText = ""
+    fun toggleTaskDone(task: TaskEntity) {
+        viewModelScope.launch {
+            val updated = task.copy(isDone = !task.isDone)
+            taskDao.insert(updated)
         }
     }
 
     fun clearTasks() {
-        taskList.clear()
-    }
-
-
-    fun toggleTaskDone(task: Task) {
-        val index = taskList.indexOf(task)
-        if (index != -1) {
-            taskList[index] = task.copy(isDone = !task.isDone)
+        viewModelScope.launch {
+            taskList.value.forEach { taskDao.delete(it) }
         }
     }
 }

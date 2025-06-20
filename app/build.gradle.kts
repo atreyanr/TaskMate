@@ -9,6 +9,11 @@ val room_version = "2.6.1"
 android {
     namespace = "com.example.taskmate"
     compileSdk = 35
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.taskmate"

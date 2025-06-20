@@ -7,18 +7,24 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.taskmate.viewmodel.TaskViewModel
 import com.example.taskmate.ui.screens.home.TaskItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.collectAsState
+import com.example.taskmate.model.TaskEntity
+
 
 @Composable
-fun CompletedScreen(navController: NavController, viewModel: TaskViewModel) {
-    val completedTasks = viewModel.taskList.filter { it.isDone }
+fun CompletedScreen(viewModel: TaskViewModel) {
+    val allTasks by viewModel.taskList.collectAsState()
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    val completedTasks: List<TaskEntity> = allTasks.filter { it.isDone }
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Text(
             text = "Completed Tasks",
             style = MaterialTheme.typography.headlineMedium,
@@ -30,7 +36,7 @@ fun CompletedScreen(navController: NavController, viewModel: TaskViewModel) {
         } else {
             LazyColumn {
                 items(completedTasks) { task ->
-                    TaskItem(task = task, onToggle = viewModel::toggleTaskDone)
+                    TaskItem(task = task, onToggle = { viewModel.toggleTaskDone(task) })
                 }
             }
         }
