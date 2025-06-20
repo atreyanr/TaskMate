@@ -16,22 +16,23 @@ import com.example.taskmate.data.SettingsDataStore
 import com.example.taskmate.viewmodel.TaskViewModel
 
 @Composable
-fun NavGraph(taskViewModel: TaskViewModel,
-             settingsStore: SettingsDataStore,
-             startDestination: String = "home") {
+fun NavGraph(
+    taskViewModel: TaskViewModel,
+    settingsStore: SettingsDataStore,
+    startDestination: String = "home"
+) {
     val navController: NavHostController = rememberNavController()
     Scaffold(
         bottomBar = {
             BottomNavBar(navController)
         }
-    )
-    { innerPadding ->
+    ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = startDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("home") { HomeScreen(taskViewModel)}
+            composable("home") { HomeScreen(taskViewModel) }
             composable("completed") { CompletedScreen(taskViewModel) }
             composable("settings") { SettingsScreen(navController, taskViewModel, settingsStore) }
         }
