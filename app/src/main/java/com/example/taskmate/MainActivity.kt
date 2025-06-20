@@ -19,8 +19,6 @@ import com.example.taskmate.auth.GoogleAuthUiClient
 import com.example.taskmate.data.TaskDatabase
 import com.example.taskmate.viewmodel.TaskViewModelFactory
 import com.google.android.gms.auth.api.identity.Identity
-import com.example.taskmate.data.TaskDatabase
-import com.example.taskmate.viewmodel.TaskViewModelFactory
 
 
 class MainActivity : ComponentActivity() {
